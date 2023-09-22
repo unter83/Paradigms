@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class ConsoleInterface {
 
     private Table table;
@@ -30,9 +31,33 @@ public class ConsoleInterface {
     }
 
     public void showTable() {
-        for (int i = 1; i < 9; i+=3) {
-            System.out.println(" " + table.get(i) + " | " + table.get(i + 1) + " | " + table.get(i + 2) + " ");
+        int count = 1;
+        for (int i = 1; i <= table.getRank()*table.getRank(); i++) {
+            System.out.print(" ");
+            if (count == table.getRank()) {
+                System.out.println(table.get(i));
+                count = 1;
+            }
+            else {
+                System.out.print(table.get(i) + " | ");
+                count++;
+            }
+//            System.out.print(" ");
+//            for (int j = 1; j <= table.getRank() * i; j++) {
+//                System.out.print(table.get(j));
+////                if (j != table.getRank() - 1)
+////                    System.out.print(" | ");
+////                else
+////                    System.out.print(" ");
+//            }
+            //System.out.println();
+ //           System.out.println(" " + table.get(i) + " | " + table.get(i + 1) + " | " + table.get(i + 2) + " ");
         }
+    }
+
+    public void showVictory(User user) {
+        System.out.println("\nИгрок \"" + user.getSymbol() + "\" победил\n");
+        System.exit(0);
     }
 
     public void showTurn(User user) {

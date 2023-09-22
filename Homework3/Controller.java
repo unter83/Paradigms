@@ -20,20 +20,52 @@ public class Controller {
                 slot = console.chooseSlot(user1);
                 user1.makeTurn(slot);
                 console.showTurn(user1);
+                console.showTable();
+                if (checkVictory(slot, user1))
+                    console.showVictory(user1);
             } else {
                 slot = console.chooseSlot(user2);
                 user2.makeTurn(slot);
                 console.showTurn(user2);
+                console.showTable();
+                if (checkVictory(slot, user2))
+                    console.showVictory(user2);
             }
-            console.showTable();
             step++;
+
+//            table.showArray();
         }
     }
 
-    public boolean checkVictory() {
-        if (step < 6)
-            return false;
+    public boolean checkVictory(int slot, User user) {
+        boolean victory = false;
+        if (step < 2 * table.getRank() - 1)
+            return victory;
 
+        if (slot  == (table.getSize()) / 2 + 1) {
+            victory = table.checkMainDag(user.getSymbol())
+                    || table.checkSecondDag(user.getSymbol())
+                    || table.checkColumn(slot, user.getSymbol())
+                    || table.checkRow(slot, user.getSymbol());
+        }
+
+        if (!victory && (slot  == 1 || slot == table.getSize())) {
+            victory = table.checkMainDag(user.getSymbol())
+                    || table.checkColumn(slot, user.getSymbol())
+                    || table.checkRow(slot, user.getSymbol());
+        }
+
+        if (!victory && (slot  == table.getRank() || slot == table.getSize() - table.getRank() + 1)) {
+            victory = table.checkSecondDag(user.getSymbol())
+                    || table.checkColumn(slot, user.getSymbol())
+                    || table.checkRow(slot, user.getSymbol());
+        }
+
+        if (!victory) {
+            victory = table.checkColumn(slot, user.getSymbol()) || table.checkRow(slot, user.getSymbol());
+        }
+
+        return victory;
     }
 
     public int getStep() {
