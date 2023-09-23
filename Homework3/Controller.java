@@ -1,7 +1,7 @@
 public class Controller {
-    private Table table;
-    private User user1;
-    private User user2;
+    private final Table table;
+    private final User user1;
+    private final User user2;
     ConsoleInterface console;
 
     int step = 1;
@@ -10,7 +10,7 @@ public class Controller {
         this.table = table;
         this.user1 = user1;
         this.user2 = user2;
-        this.console = new ConsoleInterface(table, user1, user2);
+        this.console = new ConsoleInterface(table);
     }
 
     public void run() {
@@ -32,8 +32,8 @@ public class Controller {
                     console.showVictory(user2);
             }
             step++;
-
-//            table.showArray();
+            if (step == 10)
+                console.showDraw();
         }
     }
 
@@ -68,9 +68,6 @@ public class Controller {
         return victory;
     }
 
-    public int getStep() {
-        return step;
-    }
 
 
 
