@@ -12,11 +12,11 @@ public class Pearson1 {
         double[] X2 = Arrays.stream(arrayX).mapToDouble(a -> Math.pow((a - xMean),2)).toArray();
         double[] Y2 = Arrays.stream(arrayY).mapToDouble(a -> Math.pow((a - yMean),2)).toArray();
 
-        double[] Z = Arrays.stream(X).map(i -> i * Y[Arrays.stream(X).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
-        double[] Z2 = Arrays.stream(X2).map(i -> i * Y2[Arrays.stream(X2).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
+        double[] numArray = Arrays.stream(X).map(i -> i * Y[Arrays.stream(X).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
+        double[] denomArray = Arrays.stream(X2).map(i -> i * Y2[Arrays.stream(X2).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
 
-        double numerator = Arrays.stream(Z).sum();
-        double denominator = Math.pow(Arrays.stream(Z2).sum(), 0.5);
+        double numerator = Arrays.stream(numArray).sum();
+        double denominator = Math.pow(Arrays.stream(denomArray).sum(), 0.5);
         return numerator/denominator;
     }
     public static void main(String[] args) {

@@ -12,20 +12,15 @@ public class Pearson2 {public static double Pearson(int[] arrayX, int[] arrayY) 
 
     double[] numArray = Arrays.stream(X).map(i -> i * Y[Arrays.stream(X).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
 
-    double denomArrayX = Math.pow(Arrays.stream(X2).sum(), 0.5);
-    double denomArrayY = Math.pow(Arrays.stream(Y2).sum(), 0.5);
-
-    //double[] Z2 = Arrays.stream(X2).map(i -> i * Y2[Arrays.stream(X2).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
-
     double numerator = Arrays.stream(numArray).sum();
-    double denominator = denomArrayX * denomArrayY;
+    double denominator = Math.pow(Arrays.stream(X2).sum(), 0.5) * Math.pow(Arrays.stream(Y2).sum(), 0.5);
     return numerator/denominator;
 }
     public static void main(String[] args) {
         int[] arrayA = new int[] {1, 2, 3};
-        int[] arrayB = new int[] {1, 2, 3};
+        int[] arrayB = new int[] {10, 20, 50};
         System.out.println(Pearson(arrayA, arrayB));
 
     }
-    }
+
 }
