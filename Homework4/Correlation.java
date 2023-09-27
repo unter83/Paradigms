@@ -1,0 +1,50 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Correlation<E> {
+
+    public E[] arrayX;
+    private E[] arrayY;
+
+    public Correlation(E[] arrayX, E[] arrayY) {
+        if (arrayX.length != arrayY.length)
+            throw new RuntimeException("Массивы разного размера");
+        if (arrayX instanceof Integer[]
+                || arrayY instanceof Integer[]
+                || arrayX instanceof Long[]
+                || arrayY instanceof Long[]) {
+            this.arrayX = Arrays.stream(arrayX).map(a -> Double.valueOf(a)).toArray();
+            this.arrayY = arrayY;
+            int a = 10;
+            Double b = Double.valueOf(a);
+        }
+    }
+
+    public double Pearson() {
+        double xMean2 = Arrays.stream(arrayX).map().
+        double xMean = Arrays.stream(arrayX).asDoubleStream().average().getAsDouble();
+        double yMean = Arrays.stream(arrayY).asDoubleStream().average().getAsDouble();
+
+        double[] X = Arrays.stream(arrayX).mapToDouble(a -> a - xMean).toArray();
+        double[] Y = Arrays.stream(arrayY).mapToDouble(a -> a - yMean).toArray();
+        double[] X2 = Arrays.stream(arrayX).mapToDouble(a -> Math.pow((a - xMean),2)).toArray();
+        double[] Y2 = Arrays.stream(arrayY).mapToDouble(a -> Math.pow((a - yMean),2)).toArray();
+
+        double[] Z = Arrays.stream(X).map(i -> i * Y[Arrays.stream(X).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
+        double[] Z2 = Arrays.stream(X2).map(i -> i * Y2[Arrays.stream(X2).boxed().collect(Collectors.toList()).indexOf(i)]).toArray();
+
+        double numerator = Arrays.stream(Z).sum();
+        double denominator = Math.pow(Arrays.stream(Z2).sum(), 0.5);
+        return numerator/denominator;
+    }
+
+
+    public static void main(String[] args) {
+        int[] arrayA = new int[] {1, 2, 3};
+        int[] arrayB = new int[] {1, 2, 3};
+        System.out.println(Pearson(arrayA, arrayB));
+
+    }
+
+
+}
