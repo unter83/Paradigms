@@ -1,29 +1,32 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class BinarySearch {
 
     public static void main(String[] args) {
-        System.out.println("Программа реализует бинарный поиск");
-        System.out.println("Введите массив: ");
-        int[] array = promtIntArray("Введите массив цифр, разделяя их пробелом: ");
-        for (int i:
-                array) {
-            System.out.print(i + ", ");
+        System.out.println("Программа реализует бинарный поиск\n");
+        int[] array = new int[] {1, 4, 7, 8, 9, 13, 15, 19};
+        for (int i : array) {
+            System.out.print(i + " ");
         }
-//        int[] array = new int[] {
-//                1, 4, 7, 9
-//        };
+
+        int number = promtInt("\nВведите число для поиска: ");
+
         System.out.println();
-        System.out.println(binarySearch(array, 4));
+
+        int index = binarySearch(array, number);
+        if (index >= 0)
+            System.out.println("Число \"" + number + "\" находится на месте " + (index + 1));
+        else
+            System.out.println("Число \"" + number + "\" не найдено");
     }
 
-    private static int[] promtIntArray(String msg) throws NumberFormatException{
+
+    private static int promtInt(String msg) throws NumberFormatException{
         Scanner scanner = new Scanner(System.in);
         System.out.print(msg);
-        String text = scanner.nextLine();
-        return Arrays.stream(text.split(" ")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+        return scanner.nextInt();
     }
+
 
 
     public static int  binarySearch(int[] array, int n) {
